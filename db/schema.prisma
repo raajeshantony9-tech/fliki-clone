@@ -1,0 +1,92 @@
+// db/schema.prisma
+// This is a placeholder Prisma schema for the Storyboard feature.
+// In a real project you would run `prisma migrate` to apply this.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" // or postgresql, mysql, etc.
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  name          String?
+  storyboards   Storyboard[]
+  jobs          StoryboardJob[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Storyboard {
+  id            String   @id @default(uuid())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String
+  title         String?
+  prompt        String
+  script        Script?  @relation(fields: [scriptId], references: [id])
+  scriptId      String?  @unique
+  scenes        Scene[]
+  timeline      Timeline? @relation(fields: [timelineId], references: [id])
+  timelineId    String?  @unique
+  status        String   @default("draft") // draft|generating|ready|failed
+  outputVideoUrl String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Script {
+  id      String   @id @default(uuid())
+  text    String
+  lang    String?
+  created DateTime @default(now())
+}
+
+model Scene {
+  id            String   @id @default(uuid())
+  storyboard    Storyboard @relation(fields: [storyboardId], references: [id])
+  storyboardId  String
+  order         Int
+  description   String
+  durationEstimate Float
+  dialogue      String?
+  imagePrompt   String?
+  imageUrl      String?
+  voiceUrl      String?
+  subtitles     Subtitle[]
+}
+
+model Subtitle {
+  id        String   @id @default(uuid())
+  scene     Scene    @relation(fields: [sceneId], references: [id])
+  sceneId   String
+  lang      String   // e.g., "en"
+  url       String   // path to .vtt or .srt file
+}
+
+model Timeline {
+  id            String   @id @default(uuid())
+  storyboard    Storyboard @relation(fields: [storyboardId], references: [id])
+  storyboardId  String
+  tracks        Json       // array of TimelineTrack objects
+  transitions   Json       // array of Transition objects
+  backgroundMusic String?
+  totalDuration Float
+}
+
+model StoryboardJob {
+  id            String   @id @default(uuid())
+  storyboard    Storyboard @relation(fields: [storyboardId], references: [id])
+  storyboardId  String
+  status        String   // queued|processing|completed|failed|cancelled
+  currentStep   String
+  progress      Int      // 0-100
+  error         String?
+  startedAt     DateTime?
+  finishedAt    DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
