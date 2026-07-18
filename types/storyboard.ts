@@ -4,6 +4,7 @@ export interface Script {
   rawText: string;
   language?: string;
   createdAt: Date;
+  // TODO: add version, languageLocale, etc.
 }
 
 export interface Scene {
@@ -17,6 +18,7 @@ export interface Scene {
   imageUrl?: string;
   voiceUrl?: string;
   subtitles?: Array<{ lang: string; url: string }>;
+  // TODO: add background music, custom effects per scene
 }
 
 export interface TimelineTrack {
@@ -26,11 +28,13 @@ export interface TimelineTrack {
   start: number; // seconds
   end: number;   // exclusive
   effects?: Effect[];
+  // TODO: add metadata like muted, volume, etc.
 }
 
 export interface Effect {
   type: string; // e.g., 'fade', 'zoom', 'color', 'blur'
   params?: Record<string, any>;
+  // TODO: define specific effect interfaces
 }
 
 export interface Transition {
@@ -39,6 +43,7 @@ export interface Transition {
   duration: number; // seconds
   position: number; // time at which transition starts (or index)
   params?: Record<string, any>;
+  // TODO: add easing, direction, etc.
 }
 
 export interface Timeline {
@@ -48,6 +53,7 @@ export interface Timeline {
   transitions: Transition[];
   backgroundMusic?: string; // URL to optional music track
   totalDuration: number; // seconds
+  // TODO: add markers, captions, global effects
 }
 
 export interface Storyboard {
@@ -62,4 +68,5 @@ export interface Storyboard {
   outputVideoUrl?: string; // final video URL (signed or public)
   createdAt: Date;
   updatedAt: Date;
+  // TODO: add tags, thumbnail, duration, viewCount
 }

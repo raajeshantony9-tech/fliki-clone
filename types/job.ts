@@ -19,4 +19,5 @@ export interface StoryboardJob {
   finishedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
+  // TODO: add retryCount, priority, estimatedTimeRemaining
 }

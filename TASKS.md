@@ -2,22 +2,24 @@
 
 ## ✅ Completed
 - [x] Project initialization (npm init, Next.js 16.2.10 setup)
-- [x] TypeScript configuration (strict mode, paths alias)
+- [x] TypeScript configuration (strict mode, path alias `@/*`)
 - [x] Tailwind CSS v4 setup via `@tailwindcss/postcss`
-- [x] Landing page structure (app/layout.tsx, app/page.tsx)
-- [x] Navbar component with site title and Sign-In button
+- [x] Landing page structure (`app/layout.tsx`, `app/page.tsx`)
+- [x] Navbar component with site title and Sign‑In button
 - [x] Hero section with tagline and illustration emoji
 - [x] PromptBox component (textarea + Generate Video button)
 - [x] VideoTypeSelector component (dropdown: Shorts, Long Video, Kids Rhymes)
 - [x] Rebranding from "Fliki Clone" to "Eomar Labs" (UI text, metadata, package name)
 - [x] SEO metadata update (title: "Eomar Labs – AI Video Creation Platform", description: detailed)
 - [x] GitHub repository setup (initial commit, main branch)
-- [x] Created PROJECT_CONTEXT.md with comprehensive project documentation
+- [x] Created `PROJECT_CONTEXT.md` with comprehensive project documentation
 - [x] Designed Storyboard AI architecture (data flow, services, components, API routes, DB schema)
 - [x] Scaffolded Storyboard AI file structure (folders and placeholder files)
-- [x] Regenerated package-lock.json to match updated package.json (name: eomar-labs)
-- [x] ESLint configuration (eslint-config-next) and lint script
+- [x] Regenerated `package-lock.json` to match updated `package.json` (name: `eomar-labs`)
+- [x] ESLint configuration (`eslint-config-next`) and lint script
 - [x] Basic routing and layout using Next.js App Router
+- [x] Created shared TypeScript interfaces (`types/storyboard.ts`, `types/job.ts`, `types/media.ts`)
+- [x] Updated interface files with TODO comments for future extensions
 
 ## 🚧 Currently In Progress
 - [ ] Set up authentication middleware (NextAuth.js or custom JWT)
@@ -80,62 +82,50 @@
 - [ ] Choose authentication provider (NextAuth.js with Credentials, GitHub, Google)
 - [ ] Create `/app/(dashboard)/layout.tsx` with protected routes (redirect to login if unauthenticated)
 - [ ] Implement login page (`/app/(dashboard)/login/page.tsx`) and signup page
-- [ ] Store user info in database (User model, link to storyboards and jobs)
-- [ ] Add middleware to attach `userId` to storyboard creation and job ownership
-- [ ] Show user‑specific dashboard listing own storyboards
-- [ ] Allow logout and session management
-- [ ] Add basic UI components: Avatar, Dropdown menu, Notification toast
-- [ ] Write tests for authentication flow
+- [ ] Protect storyboard routes, ensure only authenticated users can create/view/edit storyboards
+- [ ] Add user profile page and session management
+- [ ] Connect auth user ID to storyboard creation (store `userId` in Storyboard entity)
 
 ### Phase 6 – Payments
-- [ ] Define subscription plans (Free, Pro, Enterprise) with monthly/annual billing
-- [ ] Integrate Stripe (or Lemon Squeezy) for payment processing
-- [ ] Create credit‑based system: each video generation consumes credits based on length/resolution
-- [ ] Build billing portal page to view invoices, update payment method, change plan
-- [ ] Add webhook endpoint to handle Stripe events (payment succeeded, subscription changed, etc.)
-- [ ] Enforce credit limits in API routes (check before starting generation)
-- [ ] Provide UI to purchase credits or upgrade plan
-- [ ] Add automated emails (via SendGrid or similar) for receipts and reminders
+- [ ] Define subscription plans (Free, Pro, Enterprise) with credit‑based pricing
+- [ ] Integrate payment gateway (Stripe / Paddle) for recurring billing and one‑time credit purchases
+- [ ] Implement credit system: deduct credits per AI operation (script, image, voice, render)
+- [ ] Create billing portal and invoice download
+- [ ] Add webhook handling for payment events (success, failure, refund)
+- [ ] Display credit balance in UI and enforce limits before starting jobs
 
 ### Phase 7 – Production
-- [ ] Write comprehensive unit tests for services (`*.service.ts`) using mocked external APIs
-- [ ] Write integration tests for API routes (`/api/storyboard/*`) using `supertest`
-- [ ] Add end‑to‑end Cypress tests covering core user flow: login → create storyboard → generate video → export → download
-- [ ] Perform security audit: sanitize user prompts, validate file types, enforce rate limits, use helmet.js, implement CSP
-- [ ] Optimize bundle size: dynamic imports for heavy libraries (ffmpeg.wasm, editor libs), code splitting, tree shaking
-- [ ] Implement caching layer (Redis or in‑memory) for frequent API responses (e.g., user profile)
-- [ ] Set up monitoring and logging (Sentry for errors, Logtail or Datadog for performance metrics)
-- [ ] Configure CI/CD pipeline: GitHub Actions to run lint, tests, build on every PR and push to main
-- [ ] Enable preview deployments on Vercel for each PR, production deployment on main branch
-- [ ] Create documentation for contributors (CONTRIBUTING.md) and update README with production setup instructions
-- [ ] Conduct load testing with k6 or Locust to ensure system handles expected concurrent users
-- [ ] Finalize release notes and publish MVP version (v0.1.0) to public
+- [ ] Write unit tests for services, repositories, and utilities
+- [ ] Add integration tests for API routes (using `supertest` or similar)
+- [ ] Implement end‑to‑end Cypress tests for core user flow (prompt → export)
+- [ ] Perform security audit: sanitize prompts, validate file types, rate‑limit API endpoints
+- [ ] Optimize bundle size: code‑splitting, dynamic imports, tree‑shaking
+- [ ] Set up CI/CD pipeline (GitHub Actions) for lint, test, build, and deploy to Vercel
+- [ ] Configure monitoring and logging (e.g., Sentry, LogRocket) for production
+- [ ] Prepare documentation for contributors and API reference
+- [ ] Conduct load testing and scale job workers as needed
 
 ## 🐛 Bugs
-- [ ] None currently tracked
+- [ ] Address npm audit vulnerabilities (2 moderate) – consider `npm audit fix --force` after verifying compatibility
+- [ ] Ensure TypeScript strict mode does not produce false positives in new code
+- [ ] Validate that all new files compile without errors (`npm run build`)
 
 ## 💡 Future Ideas
-- [ ] Template library: pre‑made storyboards for ads, tutorials, memes, etc.
-- [ ] Real‑time collaboration: multiple users editing same storyboard (Yjs or Conflict‑free Replicated Data Type)
-- [ ] Brand kits: upload custom fonts, logos, color palettes to apply across generated videos
-- [ ] Multi‑language support: i18n UI (react‑i18next) and automatic subtitle translation
-- [ ] Analytics dashboard: views, engagement, export counts per video
-- [ ] API access: expose REST/OpenAPI endpoints for developers to generate videos programmatically
-- [ ] Media library: upload custom images/audio to reuse across projects
-- [ ] Advanced effects: motion tracking, green screen, AI‑based background removal
-- [ ] Music & SFX library: royalty‑free tracks and sound effects with AI mood matching
-- [ ] Export presets: optimized settings for YouTube, TikTok, Instagram, LinkedIn
-- [ ] Offline mode: progressive web app with service workers for basic editing
-- [ ] Educational mode: guided tutorials and tips for new users
+- [ ] Template library (premade storyboards for ads, tutorials, etc.)
+- [ ] Real‑time collaboration (Yjs or similar)
+- [ ] Brand kits (custom fonts, colors, logos)
+- [ ] Multi‑language support (i18n UI, multilingual subtitles)
+- [ ] Analytics dashboard (views, engagement, export counts)
+- [ ] Public API access (REST/OpenAPI) for developers
+- [ ] AI‑powered scene suggestions and auto‑editing
+- [ ] Integration with stock media libraries (Pexels, Unsplash)
+- [ ] Export to social media formats (YouTube, TikTok, Instagram) with presets
 
 ## 📌 Notes
-- Keep all changes in TypeScript; avoid `any` unless unavoidable (and document why).
-- Every new service or component should have a corresponding placeholder or TODO comment until implemented.
-- When integrating third‑party APIs, store credentials in `.env.local` (never commit) and reference via `process.env`.
-- Follow the existing coding style: 2‑space imports, PascalCase for components, camelCase for functions and variables.
-- Use absolute imports with `@/` prefix (configured in `tsconfig.json`).
-- Ensure all new files are lint‑friendly; run `npm run lint` after creation.
-- This checklist is a living document; update it as tasks are completed, added, or reprioritized.
-
---- 
-*Task list generated based on PROJECT_CONTEXT.md and current repository state (2026‑07‑18).*
+- Keep the landing‑page (`/app/page.tsx`, `/app/layout.tsx`, `/components/*`) untouched unless a change is explicitly required for global layout (e.g., adding auth redirects).
+- All new code should follow the existing TypeScript and ESLint rules.
+- When adding environment variables, update `.env.example` (do not commit real keys).
+- Use the `@/` alias for absolute imports; avoid relative paths that deepen tree traversal.
+- Regularly sync `package-lock.json` after adding new dependencies.
+- For any UI component, reuse existing Tailwind utility classes from the landing page to maintain visual consistency.
+- Document any non‑obvious decisions in `PROJECT_CONTEXT.md` to keep knowledge base up‑to‑date.
