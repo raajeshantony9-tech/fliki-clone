@@ -1,11 +1,12 @@
 export default function TimelineEditor({ timeline, onTimelineChange }: { timeline: any; onTimelineChange: (timeline: any) => void }) {
   return (
-    <div className="p-4 bg-gray-50 rounded border">
-      <h2 className="font-semibold mb-2">Timeline Editor</h2>
-      <p className="text-gray-500">TODO: Implement drag‑and‑drop timeline with tracks for images, audio, subtitles, transitions, and effects.</p>
-      {/* Placeholder visualization */}
-      <div className="mt-4 p-2 border rounded min-h-[200px] bg-white">
-        Timeline will appear here.
+    <div className="mb-6 w-full max-w-2xl bg-gray-800 rounded-2xl p-6">
+      <h2 className="mb-4 text-2xl font-semibold text-white">Timeline Editor</h2>
+      <div className="min-h-[300px] bg-gray-700 rounded-lg dashed border-2 border-dashed border-gray-600 flex items-center justify-center text-white italic">
+        Drag & drop timeline editor will go here
+      </div>
+      <div className="mt-4 text-sm text-gray-400">
+        Tip: Arrange scenes, add transitions, adjust timing and audio levels
       </div>
     </div>
   );

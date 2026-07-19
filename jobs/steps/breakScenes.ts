@@ -11,6 +11,14 @@ export async function breakScenes(storyboardId: string): Promise<void> {
   if (!storyboard) throw new Error('Storyboard not found');
   const script = await storyboardRepository.getScript(storyboardId);
   if (!script) throw new Error('Script not generated yet');
-  const scenes = await SceneService.breakdown(script.rawText);
+  const rawScenes = await SceneService.breakdown(script.rawText);
+  const scenes = rawScenes.map((scene, index) => ({
+    id: crypto.randomUUID(),
+    storyboardId,
+    order: index,
+    description: scene.description,
+    durationEstimate: scene.durationEstimate ?? 5,
+    dialogue: scene.dialogue,
+  }));
   await storyboardRepository.saveScenes(storyboardId, scenes);
 }

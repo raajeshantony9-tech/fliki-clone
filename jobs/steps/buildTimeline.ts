@@ -1,6 +1,6 @@
 // Step: buildTimeline
 import { storyboardRepository } from '@/db/repositories/storyboardRepository';
-import { timelineService } from '@/services/video/timelineService';
+import { Timeline, TimelineTrack } from '@/types/storyboard';
 
 /**
  * Build a timeline from scenes, images, voice, subtitles.
@@ -11,7 +11,7 @@ export async function buildTimeline(storyboardId: string): Promise<void> {
   if (!storyboard) throw new Error('Storyboard not found');
   const scenes = await storyboardRepository.getScenes(storyboardId);
   // Simple sequential timeline: each scene gets its own track.
-  const tracks = [];
+  const tracks: TimelineTrack[] = [];
   let currentTime = 0;
   scenes.forEach((scene, idx) => {
     const duration = scene.durationEstimate ?? 5;
@@ -35,13 +35,14 @@ export async function buildTimeline(storyboardId: string): Promise<void> {
     }
     if (scene.subtitles && scene.subtitles.length) {
       scene.subtitles.forEach((sub: any, subIdx) => {
-        tracks.push({
+        const subtitleTrack: TimelineTrack = {
           id: crypto.randomUUID(),
           type: 'subtitle',
           src: sub.url,
           start: currentTime,
           end: currentTime + duration,
-        });
+        };
+        tracks.push(subtitleTrack);
       });
     }
     currentTime += duration;

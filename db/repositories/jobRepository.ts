@@ -39,7 +39,7 @@ export const jobRepository = {
   },
 
   // For worker to update progress and step
-  async updateProgress(id: string, currentStep: string, progress: number): Promise<StoryboardJob | null> {
+  async updateProgress(id: string, currentStep: StoryboardJob['currentStep'], progress: number): Promise<StoryboardJob | null> {
     return this.update(id, { currentStep, progress });
   },
 

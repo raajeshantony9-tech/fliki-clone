@@ -10,7 +10,7 @@ export async function generateVoice(storyboardId: string): Promise<void> {
   const scenes = await storyboardRepository.getScenes(storyboardId);
   const updated = await Promise.all(
     scenes.map(async (scene) => {
-      let voiceUrl = null;
+      let voiceUrl: string | undefined;
       if (scene.dialogue) {
         voiceUrl = await VoiceService.synthesize(scene.dialogue);
       }

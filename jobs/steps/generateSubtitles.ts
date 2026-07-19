@@ -9,8 +9,8 @@ import { SubtitleService } from '@/services/media/subtitleService';
 export async function generateSubtitles(storyboardId: string): Promise<void> {
   const scenes = await storyboardRepository.getScenes(storyboardId);
   const updated = await Promise.all(
-    scenes.map(async (scene) => {
-      let subtitles = [];
+    scenes.map(async (scene): Promise<{ [key: string]: any } & { subtitles?: Array<{ lang: string; url: string }> }> => {
+      let subtitles: Array<{ lang: string; url: string }> | undefined;
       if (scene.dialogue) {
         const subtitleUrl = await SubtitleService.generate(scene.dialogue, scene.durationEstimate ?? 5);
         subtitles = [{ lang: 'en', url: subtitleUrl }];

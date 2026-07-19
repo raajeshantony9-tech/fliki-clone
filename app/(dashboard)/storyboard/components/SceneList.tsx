@@ -1,12 +1,20 @@
-export default function SceneList({ scenes, onReorder }: { scenes: any[]; onReorder: (from: number, to: number) => void }) {
+import SceneCard from './SceneCard';
+
+export default function SceneList({ scenes, onReplace }: { scenes: any[]; onReplace: () => void }) {
   return (
-    <div className="p-4 space-y-2">
-      <h2 className="font-semibold mb-2">Scenes</h2>
-      <div className="border rounded p-2 min-h-[200px]">
-        {scenes.map((scene, idx) => (
-          <div key={scene.id} className="p-2 mb-2 border rounded bg-gray-50">
-            <strong>Scene {idx + 1}:</strong> {scene.description}
-          </div>
+    <div className="mb-6 w-full max-w-2xl bg-gray-800 rounded-2xl p-6">
+      <h2 className="mb-4 text-xl font-semibold text-white">Scenes</h2>
+      <div className="space-y-4">
+        {scenes.map((scene) => (
+          <SceneCard
+            key={scene.id}
+            scene={scene}
+            onSelect={() => onReplace()}
+            onEdit={() => {}}
+            onRemove={() => {}}
+            onRegenerateImage={() => {}}
+            onRegenerateVoice={() => {}}
+          />
         ))}
       </div>
     </div>

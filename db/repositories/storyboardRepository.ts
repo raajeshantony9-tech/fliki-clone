@@ -37,8 +37,8 @@ export const storyboardRepository = {
 
   // Script
   async saveScript(storyboardId: string, script: Script): Promise<void> {
-    scripts.set(storyboardId, script);
-    await this.update(storyboardId, { scriptId: script.id });
+    scripts.set(script.id, script);
+    await this.update(storyboardId, { script });
   },
 
   async getScript(storyboardId: string): Promise<Script | null> {
@@ -74,7 +74,6 @@ export const storyboardRepository = {
     const current = await this.getScenes(storyboardId);
     const updated = current.map(sc => {
       const up = updates.find(u => u.id === sc.id);
-      // Merge imageUrl and maybe keep imagePrompt
       const merged = { ...sc };
       if (up?.imageUrl !== undefined) merged.imageUrl = up.imageUrl;
       if (up?.imagePrompt !== undefined) merged.imagePrompt = up.imagePrompt;
